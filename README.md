@@ -23,6 +23,10 @@ Creator: [Tim Farland](http://timfarland.com)
         #f 2
            3)
 
+### Shorter let
+
+    (lyt (x 2 y 3) (* x y))
+
 ### Short curry, compose, and, append
 
     (:= x2 (~ * 2))

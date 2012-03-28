@@ -41,14 +41,6 @@
 (macro ?? 
        (expr ...) (??-acc () expr ...))
 
-; shorter let ('lyt' is 'let' in a kiwi acccent)
-(macro lyt-acc
-       ((body ...) (ps ...) k v) (let (ps ... (k v)) body ...)
-       ((body ...) (ps ...) k v rest ...) (lyt-acc (body ...) (ps ... (k v)) rest ...))
-
-(macro lyt
-       ((ps ...) body ...) (lyt-acc (body ...) () ps ...))
-
 ; general shorthand
 (macro && 
        (x y) (and x y))
