@@ -42,3 +42,13 @@ Creator: [Tim Farland](http://timfarland.com)
     (:== map (f ls)
          (_ null) null
          (f (cons x xs)) (cons (f x) (map f xs)))
+
+### List comprehensions & utilities
+
+    (<- (+ x y)
+        x (.. 0 10)
+        y (.. 0 5)
+        (even? x))
+
+
+
