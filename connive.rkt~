@@ -3,7 +3,7 @@
 ; shorter core syntax for racket
 ; http://github.com/twfarland/connive
 
-(provide macro := :== && ~ <- ?? ++)
+(provide macro := :=! :== && ~ <- ?? ++ lyt)
 
 ; simple macros
 (define-syntax-rule (macro-aux id ((param ...) expr) ...)
@@ -25,6 +25,9 @@
 (macro :=
        (id body ...) (define id body ...))
 
+(macro :=!
+       (id body ...) (set! id body ...))
+
 ; pattern-matching function definitions
 (macro :==-acc
        (id ps (pair ...) patt expr) (:= id (λ ps (match* ps (patt expr) pair ...)))
@@ -41,6 +44,21 @@
 (macro ?? 
        (expr ...) (??-acc () expr ...))
 
+; shorter let ('lyt' is 'let' in a kiwi acccent)
+(macro lyt-acc
+       ((body ...) (ps ...) k v) (let (ps ... (k v)) body ...)
+       ((body ...) (ps ...) k v rest ...) (lyt-acc (body ...) (ps ... (k v)) rest ...))
+
+(macro lyt
+       ((ps ...) body ...) (lyt-acc (body ...) () ps ...))
+
+(macro lyt-acc*
+       ((body ...) (ps ...) k v) (let* (ps ... (k v)) body ...)
+       ((body ...) (ps ...) k v rest ...) (lyt-acc* (body ...) (ps ... (k v)) rest ...))
+
+(macro lyt*
+       ((ps ...) body ...) (lyt-acc* (body ...) () ps ...))
+
 ; general shorthand
 (macro && 
        (x y) (and x y))
@@ -48,6 +66,3 @@
 (:= ~ curry)
 (:= <- compose)
 (:= ++ append)
-
-
-    
